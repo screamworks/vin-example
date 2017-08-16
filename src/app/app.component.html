@@ -1,0 +1,40 @@
+<!--Navbar-->
+<navbar SideClass="navbar navbar-expand-lg navbar-dark indigo">
+
+    <!-- Navbar brand -->
+    <logo><a class="navbar-brand" href="#">VIN Decoder</a></logo>
+
+    <!-- Collapsible content -->
+    <links>
+
+        <!-- Search form -->
+        <form
+              class="form-inline  waves-light"
+              ripple-radius
+              validate>
+            <input
+                  class="form-control mr-sm-2"
+                  type="text"
+                  placeholder="Enter a VIN..."
+                  required
+                  #box
+                  (keyup.enter)="onSubmit(box.value)"
+                  (blur)="onSubmit(box.value)">
+
+            <button class="btn btn-primary waves-light" ripple-radius><i class="fa fa-share" aria-hidden="true"></i></button>
+        </form>
+    </links>
+    <!-- Collapsible content -->
+
+</navbar>
+<!--/.Navbar-->
+<div class="container">
+<div class="card clearfix" *ngIf="payload">
+  <h1>{{payload.ModelYear}} {{payload.Make}} {{payload.Model}}</h1>
+  <h3>{{payload.DisplacementL}}L V-{{payload.EngineCylinders}}</h3>
+  <hr>
+<div class="card-body" *ngFor="let entry of payload | keys">
+  <b>{{entry.key}}:</b> {{entry.value}}<br>
+</div>
+</div>
+</div>
