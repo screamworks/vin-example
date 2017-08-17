@@ -28,13 +28,23 @@
 
 </navbar>
 <!--/.Navbar-->
-<div class="container">
-<div class="card clearfix" *ngIf="payload">
-  <h1>{{payload.ModelYear}} {{payload.Make}} {{payload.Model}}</h1>
-  <h3>{{payload.DisplacementL}}L V-{{payload.EngineCylinders}}</h3>
-  <hr>
-<div class="card-body" *ngFor="let entry of payload | keys">
-  <b>{{entry.key}}:</b> {{entry.value}}<br>
-</div>
-</div>
+<div class="container" *ngIf="payload">
+  <div class="row animated fadeIn">
+    <div class="col-md-12">
+      <div class="card clearfix">
+        <h1>{{payload.ModelYear}} {{payload.Make}} {{payload.Model}} <small>{{payload.Trim}}</small></h1>
+        <h3>{{payload.DisplacementL}}L V{{payload.EngineCylinders}}</h3>
+      </div>
+    </div>
+  </div>
+    <div class="row animated fadeIn">
+      <ng-template ngFor let-item [ngForOf]="payload | keys">
+      <div class="col-md-3" *ngIf="item.value">
+        <div class="card">
+          <b>{{item.key}}:</b> {{item.value}}<br>
+        </div>
+        <div class="is-clearfix" *ngIf="i % 4 == 0"></div>
+      </div>
+    </ng-template>
+    </div>
 </div>
