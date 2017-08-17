@@ -1,3 +1,4 @@
+<simple-notifications [options]="options"></simple-notifications>
 <!--Navbar-->
 <navbar SideClass="navbar navbar-expand-lg navbar-dark indigo">
 
@@ -31,7 +32,7 @@
 <div class="container" *ngIf="payload">
   <div class="row animated fadeIn">
     <div class="col-md-12">
-      <div class="card clearfix">
+      <div class="card hover clearfix">
         <h1>{{payload.ModelYear}} {{payload.Make}} {{payload.Model}} <small>{{payload.Trim}}</small></h1>
         <h3>{{payload.DisplacementL}}L V{{payload.EngineCylinders}}</h3>
       </div>
@@ -47,4 +48,6 @@
       </div>
     </ng-template>
     </div>
+    <br>
+<div class="row"><div class="col-sm-12 text-center"><i>Selenius, 2017</i></div></div>
 </div>
