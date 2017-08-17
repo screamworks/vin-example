@@ -13,6 +13,7 @@ export class AppService {
 
 
   getData(vin): Promise<any> {
+//NHTSA vin decoder API
     return this.http.get('https://vpic.nhtsa.dot.gov/api/vehicles/DecodeVinValues/' + vin + '?format=json')
                .toPromise()
                .then(response => response.json())

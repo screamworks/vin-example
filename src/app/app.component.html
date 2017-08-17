@@ -26,24 +26,30 @@
         </form>
     </links>
     <!-- Collapsible content -->
-
 </navbar>
 <!--/.Navbar-->
 <div class="container" *ngIf="payload">
   <div class="row animated fadeIn">
     <div class="col-md-12">
       <div class="card hover clearfix">
+        <!-- Print Basic vehicle information in a title box -->
         <h1>{{payload.ModelYear}} {{payload.Make}} {{payload.Model}} <small>{{payload.Trim}}</small></h1>
         <h3>{{payload.DisplacementL}}L V{{payload.EngineCylinders}}</h3>
       </div>
     </div>
   </div>
     <div class="row animated fadeIn">
+      <!-- Loop through the returned JSON values of the vin.
+          This is in a template tag so I can use ngIf on the container.
+          The keys pipe is used to separate the title and content so in the key
+          pair so i can iterate through the list.
+      -->
       <ng-template ngFor let-item [ngForOf]="payload | keys">
       <div class="col-md-3" *ngIf="item.value">
         <div class="card">
           <b>{{item.key}}:</b> {{item.value}}<br>
         </div>
+        <!-- Does this actually work..? -->
         <div class="is-clearfix" *ngIf="i % 4 == 0"></div>
       </div>
     </ng-template>
