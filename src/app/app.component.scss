@@ -1,1 +1,7 @@
-.card { margin-top: 2rem; padding: 10px; }
+.card { margin-top: 2rem; padding: 10px; width: 100%; }
+
+.col-md-3 {
+   display: flex;
+   flex-shrink: 1;
+   min-height: 150px;
+}
