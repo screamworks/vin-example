@@ -6,4 +6,4 @@ A very basic proof-of-concept for VIN decoding on Angular.
 
 - npm i
 - ng s
-Enjoy!
+- Enjoy!
