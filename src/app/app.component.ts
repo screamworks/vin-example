@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { AppService } from './app.service';
 import { KeysPipe } from './pipe';
 import { NotificationsService } from 'angular2-notifications';
+import { Payload } from './payload';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +13,7 @@ import { NotificationsService } from 'angular2-notifications';
 export class AppComponent {
   title = 'app';
   vin:string;
-  payload:any;
+  payload:Payload;
 
   public options = {
     position: ["top", "right"],
@@ -22,23 +23,6 @@ export class AppComponent {
 
   constructor(protected service:AppService, private _service: NotificationsService) {
 
-  }
-//This function is used to separate the data into 3's so I can use ngFor to create new element rows.
-  get data_triples(){
-    let arr = [];
-    let triple= [];
-    for (let i = 1; i <= this.payload.length; i++) {
-        triple.push(this.payload[i - 1]);
-//Change value below for different number per row
-        if (i % 3 === 0) {
-            arr.push(triple);
-            triple= [];
-        }
-    }
-    if(triple.length > 0){
-        arr.push(triple);
-    }
-    return arr;
   }
 
 //Returned JSON supplies me with an error status - This is a basic function to retrieve it.
@@ -54,8 +38,18 @@ export class AppComponent {
     }
 //Anything else, we have a problem.
     else {
-      this._service.error('Error', this.payload.ErrorCode, {timeout: 5000});
-      this.payload = '';
+      this._service.error('Error', this.payload.ErrorCode, {timeOut: 5000});
+      this.payload = new Payload;
+    }
+  }
+
+//In the event there is any other warnings supplied in the JSON returned.
+  checkWarning():void {
+    if (this.payload.AdditionalErrorText) {
+      let content:string = this.payload.AdditionalErrorText;
+//Deliver message with extended wait time.
+      this._service.warn('Warning!', this.payload.AdditionalErrorText, {timeOut: 10000});
+      this.payload.AdditionalErrorText = '';
     }
   }
 
@@ -67,9 +61,11 @@ export class AppComponent {
 //Call to app.service to request the http data from api
       this.service.getData(vin).then((data) => {
 //The Results object has the data stored in a 1 item array, need to specify the [0] object.
-        this.payload = data.Results[0];
+        this.payload = data;
         console.log(this.payload);
         this.checkStatus();
+        this.checkWarning();
+
       });
     }
   }
